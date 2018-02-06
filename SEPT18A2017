@@ -1,0 +1,39 @@
+#define LED1 8
+#define LED2 9
+#define SW1 2
+#define SW2  4
+
+int  interval = 250  ;
+int etatLed = 0 ;
+unsigned long tpsActuel ;
+unsigned long tpsPreced;
+
+void setup() {
+
+  pinMode(LED1 , OUTPUT);
+  pinMode(LED1 , HIGH);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED2 , LOW);
+  pinMode(SW2 , HIGH);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  tpsActuel = millis();
+  if (tpsActuel - tpsPreced  > interval) {
+    Serial.println("seq");
+    tpsPreced = tpsActuel;
+    digitalWrite(LED1, !digitalRead(LED1));
+  }
+  if (digitalRead(SW1)) {
+    Serial.println("SW1");
+    digitalWrite(LED2, HIGH);
+  }
+  else if (!digitalRead(SW2)) {
+    Serial.println("SW2");
+    digitalWrite(LED2, LOW);
+  }
+  delay(100);
+}
+
